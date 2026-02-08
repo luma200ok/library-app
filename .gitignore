@@ -2,4 +2,14 @@
 /.gradle/
 /build/
 /build/classes/java/main/
-/.idea/
+
+# IntelliJ
+.idea/
+.idea
+out/
+
+# macOS
+
+# Keys(NEVER COMMIT)
+*.key
+*.pem
