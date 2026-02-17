@@ -34,7 +34,6 @@ EC2에서 빌드하지 않고, **로컬에서 `bootJar`로 빌드한 JAR을 EC2�
 - **🅰️ 현재(Plan A)**: 로컬에서 `bootJar` 빌드 → `scp`로 JAR 업로드 → EC2는 실행만 담당
 
 #### ✅ Plan A를 선택한 이유
-- **🛡 안정성**: EC2 리소스/의존성/환경 차이로 인한 빌드 실패 위험 감소
 - **⚡ 속도**: JAR 교체 + 프로세스 재시작만으로 빠른 배포
 - **🪶 경량화**: 서버에 Gradle/소스코드가 필수 아님(실행 전용 운영)
 
@@ -47,28 +46,8 @@ EC2에서 빌드하지 않고, **로컬에서 `bootJar`로 빌드한 JAR을 EC2�
 
 ---
 
-## 🧹 Git Ignore (.gitignore)
-
-🔒 빌드 산출물 / 캐시 / 키 파일은 커밋 금지
-
-```gitignore
-# Gradle
-/build/
-/.gradle/
-
-# Keys (NEVER COMMIT)
-*.pem
-*.key
-
-# macOS
-.DS_Store
-```
-
----
-
 ## 🧩 Troubleshooting & Lessons Learned
 - **Java 21 전환 이슈**: Gradle Wrapper/플러그인 조합 문제로 빌드 실패 → **Wrapper 8.5로 조정**
 - **Spring Boot 3.x 마이그레이션**: `javax.*` → `jakarta.*` 네임스페이스 전환 대응
 - **보안 사고 대응**: DB 비밀번호 커밋 이력 → **Rotate + `git filter-repo`로 히스토리 제거 + 강제 푸시**
 - **인프라 이슈**: Amazon Linux 2023 MySQL 설치 시 **GPG 키 검증 실패** → `RPM-GPG-KEY-mysql-2023` 임포트로 해결
-- **도메인 연결**: DNS A 레코드 설정 오류 수정으로 도메인 정상화  
